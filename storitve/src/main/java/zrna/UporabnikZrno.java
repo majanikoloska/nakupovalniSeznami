@@ -8,7 +8,7 @@ import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped
-public class UporabnikiZrno {
+public class UporabnikZrno {
 
     @PersistenceContext(unitName = "nakupovalniseznam-jpa")
     private EntityManager em;
