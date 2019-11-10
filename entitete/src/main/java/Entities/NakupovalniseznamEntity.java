@@ -4,11 +4,31 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "nakupovalniseznam")
+@NamedQueries(value =
+        {
+                @NamedQuery(name= NakupovalniseznamEntity.GET_ALL,
+                        query = "SELECT n FROM nakupovalniseznam n"),
+                @NamedQuery(name= NakupovalniseznamEntity.GET_NAKUPOVALNI_SEZNAM_BY_ID,
+                        query = "SELECT n FROM nakupovalniseznam n WHERE n.id = :id"),
+                @NamedQuery(name= NakupovalniseznamEntity.GET_NAKUPOVALNI_SEZNAM_BY_STATUS,
+                        query = "SELECT n FROM nakupovalniseznam n WHERE n.status = :status"),
+                @NamedQuery(name= NakupovalniseznamEntity.GET_NAKUPOVALNI_SEZNAM_BY_NAZIV,
+                        query = "SELECT n FROM nakupovalniseznam n WHERE n.naziv = :naziv")
+        })
 public class NakupovalniseznamEntity {
+
+    public static final String GET_ALL = "NakupovalniSeznam.getAll";
+    public static final String GET_NAKUPOVALNI_SEZNAM_BY_ID = "NakupovalniSeznam.getById";
+    public static final String GET_NAKUPOVALNI_SEZNAM_BY_STATUS = "NakupovalniSeznam.getByStatus";
+    public static final String GET_NAKUPOVALNI_SEZNAM_BY_NAZIV = "NakupovalniSeznam.getByNaziv";
+
+
     private int id;
     private String status;
     private String opomba;
     private String naziv;
+
+
 
     @Id
     @Column(name = "id")

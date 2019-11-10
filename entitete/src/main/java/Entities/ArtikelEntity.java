@@ -4,7 +4,24 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "artikel")
+@NamedQueries(value =
+        {
+                @NamedQuery(name= ArtikelEntity.GET_ALL,
+                        query = "SELECT a FROM artikel a"),
+                @NamedQuery(name= ArtikelEntity.GET_NAKUPOVALNI_SEZNAM_BY_ID,
+                        query = "SELECT a FROM artikel a WHERE a.id = :id"),
+                @NamedQuery(name= ArtikelEntity.GET_NAKUPOVALNI_SEZNAM_BY_NAZIV,
+                        query = "SELECT a FROM artikel a WHERE a.status = :status"),
+                @NamedQuery(name= ArtikelEntity.GET_NAKUPOVALNI_SEZNAM_BY_ZALOGA,
+                        query = "SELECT a FROM artikel a WHERE a.zaloga = :zaloga")
+        })
 public class ArtikelEntity {
+
+    public static final String GET_ALL = "ArtikelEntity.getAll";
+    public static final String GET_NAKUPOVALNI_SEZNAM_BY_ID = "ArtikelEntity.getById";
+    public static final String GET_NAKUPOVALNI_SEZNAM_BY_ZALOGA = "ArtikelEntity.getByZaloga";
+    public static final String GET_NAKUPOVALNI_SEZNAM_BY_NAZIV = "ArtikelEntity.getByNaziv";
+
     private int id;
     private String naziv;
     private Boolean zaloga;

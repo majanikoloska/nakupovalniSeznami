@@ -4,7 +4,31 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "uporabnik")
+@NamedQueries(value =
+        {
+                @NamedQuery(name= UporabnikEntity.GET_ALL,
+                        query = "SELECT u FROM uporabnik u"),
+                @NamedQuery(name= UporabnikEntity.GET_USER_BY_ID,
+                        query = "SELECT u FROM uporabnik u WHERE u.id = :id"),
+                @NamedQuery(name= UporabnikEntity.GET_GET_USER_BY_USERNAME,
+                        query = "SELECT u FROM uporabnik u WHERE u.username = :username"),
+                @NamedQuery(name= UporabnikEntity.GET_GET_USER_BY_EMAIL,
+                        query = "SELECT u FROM uporabnik u WHERE u.email = :email"),
+                @NamedQuery(name= UporabnikEntity.GET_GET_USER_BY_NAME,
+                        query = "SELECT u FROM uporabnik u WHERE u.ime = :ime"),
+                @NamedQuery(name= UporabnikEntity.GET_GET_USER_BY_LASTNAME,
+                        query = "SELECT u FROM uporabnik u WHERE u.priimek = :priimek")
+        })
 public class UporabnikEntity {
+
+    public static final String GET_ALL = "UporabnikEntity.getAll";
+    public static final String GET_USER_BY_ID = "UporabnikEntity.getById";
+    public static final String GET_GET_USER_BY_USERNAME = "UporabnikEntity.getByUsername";
+    public static final String GET_GET_USER_BY_EMAIL = "UporabnikEntity.getByNaziv";
+    public static final String GET_GET_USER_BY_NAME = "UporabnikEntity.getByName";
+    public static final String GET_GET_USER_BY_LASTNAME = "UporabnikEntity.getByLastname";
+
+
     private int id;
     private String ime;
     private String priimek;
