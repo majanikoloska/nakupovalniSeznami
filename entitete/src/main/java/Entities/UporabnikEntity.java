@@ -1,6 +1,7 @@
 package Entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "uporabnik")
@@ -35,6 +36,17 @@ public class UporabnikEntity {
     private String username;
     private String email;
     private String password;
+
+    @ManyToMany
+    private List<NakupovalniseznamEntity> nakupovalniseznam;
+
+    public List<NakupovalniseznamEntity> getNakupovalniseznam() {
+        return nakupovalniseznam;
+    }
+
+    public void setNakupovalniseznam(List<NakupovalniseznamEntity> nakupovalniseznam) {
+        this.nakupovalniseznam = nakupovalniseznam;
+    }
 
     @Id
     @Column(name = "id")
