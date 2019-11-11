@@ -30,6 +30,8 @@ public class UporabnikEntity {
     public static final String GET_GET_USER_BY_LASTNAME = "UporabnikEntity.getByLastname";
 
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String ime;
     private String priimek;

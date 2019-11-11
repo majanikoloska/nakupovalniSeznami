@@ -22,6 +22,8 @@ public class ArtikelEntity {
     public static final String GET_NAKUPOVALNI_SEZNAM_BY_ZALOGA = "ArtikelEntity.getByZaloga";
     public static final String GET_NAKUPOVALNI_SEZNAM_BY_NAZIV = "ArtikelEntity.getByNaziv";
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String naziv;
     private Boolean zaloga;
