@@ -23,7 +23,7 @@ public class NakupovalniseznamEntity {
     public static final String GET_NAKUPOVALNI_SEZNAM_BY_STATUS = "NakupovalniSeznam.getByStatus";
     public static final String GET_NAKUPOVALNI_SEZNAM_BY_NAZIV = "NakupovalniSeznam.getByNaziv";
 
-
+    @Id
     private int id;
     private String status;
     private String opomba;
