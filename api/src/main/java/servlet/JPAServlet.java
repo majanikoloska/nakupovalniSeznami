@@ -1,8 +1,11 @@
+package servlet;
+
 import Entities.ArtikelEntity;
 import Entities.NakupovalniseznamEntity;
 import Entities.UporabnikEntity;
 import zrna.UporabnikZrno;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

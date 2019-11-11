@@ -1,5 +1,6 @@
 package zrna;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import Entities.*;
