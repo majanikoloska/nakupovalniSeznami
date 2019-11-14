@@ -8,13 +8,13 @@ import java.util.List;
 @NamedQueries(value =
         {
                 @NamedQuery(name= NakupovalniseznamEntity.GET_ALL,
-                        query = "SELECT n FROM nakupovalniseznam n"),
+                        query = "SELECT n FROM NakupovalniseznamEntity n"),
                 @NamedQuery(name= NakupovalniseznamEntity.GET_NAKUPOVALNI_SEZNAM_BY_ID,
-                        query = "SELECT n FROM nakupovalniseznam n WHERE n.id = :id"),
+                        query = "SELECT n FROM NakupovalniseznamEntity n WHERE n.id = :id"),
                 @NamedQuery(name= NakupovalniseznamEntity.GET_NAKUPOVALNI_SEZNAM_BY_STATUS,
-                        query = "SELECT n FROM nakupovalniseznam n WHERE n.status = :status"),
+                        query = "SELECT n FROM NakupovalniseznamEntity n WHERE n.status = :status"),
                 @NamedQuery(name= NakupovalniseznamEntity.GET_NAKUPOVALNI_SEZNAM_BY_NAZIV,
-                        query = "SELECT n FROM nakupovalniseznam n WHERE n.naziv = :naziv")
+                        query = "SELECT n FROM NakupovalniseznamEntity n WHERE n.naziv = :naziv")
         })
 public class NakupovalniseznamEntity {
 

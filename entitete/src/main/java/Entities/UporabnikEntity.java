@@ -8,17 +8,17 @@ import java.util.List;
 @NamedQueries(value =
         {
                 @NamedQuery(name= UporabnikEntity.GET_ALL,
-                        query = "SELECT u FROM uporabnik u"),
+                        query = "SELECT u FROM UporabnikEntity u"),
                 @NamedQuery(name= UporabnikEntity.GET_USER_BY_ID,
-                        query = "SELECT u FROM uporabnik u WHERE u.id = :id"),
+                        query = "SELECT u FROM UporabnikEntity u WHERE u.id = :id"),
                 @NamedQuery(name= UporabnikEntity.GET_GET_USER_BY_USERNAME,
-                        query = "SELECT u FROM uporabnik u WHERE u.username = :username"),
+                        query = "SELECT u FROM UporabnikEntity u WHERE u.username = :username"),
                 @NamedQuery(name= UporabnikEntity.GET_GET_USER_BY_EMAIL,
-                        query = "SELECT u FROM uporabnik u WHERE u.email = :email"),
+                        query = "SELECT u FROM UporabnikEntity u WHERE u.email = :email"),
                 @NamedQuery(name= UporabnikEntity.GET_GET_USER_BY_NAME,
-                        query = "SELECT u FROM uporabnik u WHERE u.ime = :ime"),
+                        query = "SELECT u FROM UporabnikEntity u WHERE u.ime = :ime"),
                 @NamedQuery(name= UporabnikEntity.GET_GET_USER_BY_LASTNAME,
-                        query = "SELECT u FROM uporabnik u WHERE u.priimek = :priimek")
+                        query = "SELECT u FROM UporabnikEntity u WHERE u.priimek = :priimek")
         })
 public class UporabnikEntity {
 

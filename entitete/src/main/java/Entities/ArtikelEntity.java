@@ -7,20 +7,20 @@ import javax.persistence.*;
 @NamedQueries(value =
         {
                 @NamedQuery(name= ArtikelEntity.GET_ALL,
-                        query = "SELECT a FROM artikel a"),
-                @NamedQuery(name= ArtikelEntity.GET_NAKUPOVALNI_SEZNAM_BY_ID,
-                        query = "SELECT a FROM artikel a WHERE a.id = :id"),
-                @NamedQuery(name= ArtikelEntity.GET_NAKUPOVALNI_SEZNAM_BY_NAZIV,
-                        query = "SELECT a FROM artikel a WHERE a.status = :status"),
-                @NamedQuery(name= ArtikelEntity.GET_NAKUPOVALNI_SEZNAM_BY_ZALOGA,
-                        query = "SELECT a FROM artikel a WHERE a.zaloga = :zaloga")
+                        query = "SELECT a FROM ArtikelEntity a"),
+                @NamedQuery(name= ArtikelEntity.GET_ARTIKEL_BY_ID,
+                        query = "SELECT a FROM ArtikelEntity a WHERE a.id = :id"),
+                @NamedQuery(name= ArtikelEntity.GET_ARTIKEL_BY_NAZIV,
+                        query = "SELECT a FROM ArtikelEntity a WHERE a.naziv = :naziv"),
+                @NamedQuery(name= ArtikelEntity.GET_ARTIKEL_BY_ZALOGA,
+                        query = "SELECT a FROM ArtikelEntity a WHERE a.zaloga = :zaloga")
         })
 public class ArtikelEntity {
 
     public static final String GET_ALL = "ArtikelEntity.getAll";
-    public static final String GET_NAKUPOVALNI_SEZNAM_BY_ID = "ArtikelEntity.getById";
-    public static final String GET_NAKUPOVALNI_SEZNAM_BY_ZALOGA = "ArtikelEntity.getByZaloga";
-    public static final String GET_NAKUPOVALNI_SEZNAM_BY_NAZIV = "ArtikelEntity.getByNaziv";
+    public static final String GET_ARTIKEL_BY_ID = "ArtikelEntity.getById";
+    public static final String GET_ARTIKEL_BY_ZALOGA = "ArtikelEntity.getByZaloga";
+    public static final String GET_ARTIKEL_BY_NAZIV = "ArtikelEntity.getByNaziv";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
