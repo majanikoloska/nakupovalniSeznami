@@ -8,10 +8,6 @@
         <class>Entities.NakupovalniseznamEntity</class>
 
         <properties>
-<!--            <property name="driverClassName" value="org.postgresql.Driver"/>-->
-<!--            <property name="url" value="jdbc:postgresql://192.168.99.100:5432/nakupovalniseznami"/>-->
-<!--            <property name="username" value="postgres"/>-->
-<!--            <property name="password" value="postgres"/>-->
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
             <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
             <property name="javax.persistence.sql-load-script-source" value="sql-scripts/init-db.sql"/>
