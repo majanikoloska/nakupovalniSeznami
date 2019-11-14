@@ -39,8 +39,7 @@ public class JPAServlet extends HttpServlet {
 
         List<NakupovalniseznamEntity> seznam = uporabnikiZrno.getNakupovalniSeznam();
         for(NakupovalniseznamEntity nakupovalniseznamEntity : seznam){
-            out.println(nakupovalniseznamEntity.getId()+", "+nakupovalniseznamEntity.getNaziv()+", "+nakupovalniseznamEntity.getArtikli()
-                    +", "+nakupovalniseznamEntity.getOpomba()+", "+nakupovalniseznamEntity.getStatus());
+            out.println(nakupovalniseznamEntity.getId()+", "+nakupovalniseznamEntity.getNaziv()+", "+nakupovalniseznamEntity.getOpomba()+", "+nakupovalniseznamEntity.getStatus());
         }
 
 
