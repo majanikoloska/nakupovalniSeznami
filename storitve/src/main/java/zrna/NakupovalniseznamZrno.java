@@ -40,7 +40,7 @@ public class NakupovalniseznamZrno {
     public NakupovalniseznamEntity getNakupovalniSeznamByStatus(String status) {
         NakupovalniseznamEntity nakupovalniseznam = em.find(NakupovalniseznamEntity.class, status);
         if (nakupovalniseznam == null) {
-            logger.info("Artikel ne obstaja");
+            logger.info("Nakupovalni seznam ne obstaja");
         }
         return nakupovalniseznam;
     }
