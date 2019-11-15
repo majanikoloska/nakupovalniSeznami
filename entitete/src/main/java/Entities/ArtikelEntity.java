@@ -1,6 +1,7 @@
 package Entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "artikel")
@@ -13,7 +14,9 @@ import javax.persistence.*;
                 @NamedQuery(name= ArtikelEntity.GET_ARTIKEL_BY_NAZIV,
                         query = "SELECT a FROM ArtikelEntity a WHERE a.naziv = :naziv"),
                 @NamedQuery(name= ArtikelEntity.GET_ARTIKEL_BY_ZALOGA,
-                        query = "SELECT a FROM ArtikelEntity a WHERE a.zaloga = :zaloga")
+                        query = "SELECT a FROM ArtikelEntity a WHERE a.zaloga = :zaloga"),
+                @NamedQuery(name= ArtikelEntity.GET_ARTIKEL_BY_NAKUPOVALNI_SEZNAM_ID,
+                        query = "SELECT a FROM ArtikelEntity a WHERE a.nakupovalniseznamId = :nakupovalniSeznamId")
         })
 public class ArtikelEntity {
 
@@ -21,12 +24,16 @@ public class ArtikelEntity {
     public static final String GET_ARTIKEL_BY_ID = "ArtikelEntity.getById";
     public static final String GET_ARTIKEL_BY_ZALOGA = "ArtikelEntity.getByZaloga";
     public static final String GET_ARTIKEL_BY_NAZIV = "ArtikelEntity.getByNaziv";
+    public static final String GET_ARTIKEL_BY_NAKUPOVALNI_SEZNAM_ID = "ArtikelEntity.getByNakupovalniSeznamId";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String naziv;
     private Boolean zaloga;
+    private Integer cena;
+    private Integer nakupovalniseznamId;
+
 
     @Id
     @Column(name = "id")
@@ -58,25 +65,41 @@ public class ArtikelEntity {
         this.zaloga = zaloga;
     }
 
+    @Basic
+    @Column(name = "nakupovalniseznam_id")
+    public Integer getNakupovalniseznamId() {
+        return nakupovalniseznamId;
+    }
+
+    public void setNakupovalniseznamId(Integer nakupovalniseznamId) {
+        this.nakupovalniseznamId = nakupovalniseznamId;
+    }
+
+
+    @Basic
+    @Column(name = "cena")
+    public Integer getCena() {
+        return cena;
+    }
+
+    public void setCena(Integer cena) {
+        this.cena = cena;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        ArtikelEntity that = (ArtikelEntity) o;
-
-        if (id != that.id) return false;
-        if (naziv != null ? !naziv.equals(that.naziv) : that.naziv != null) return false;
-        if (zaloga != null ? !zaloga.equals(that.zaloga) : that.zaloga != null) return false;
-
-        return true;
+        ArtikelEntity artikel = (ArtikelEntity) o;
+        return id == artikel.id &&
+                Objects.equals(naziv, artikel.naziv) &&
+                Objects.equals(zaloga, artikel.zaloga) &&
+                Objects.equals(nakupovalniseznamId, artikel.nakupovalniseznamId) &&
+                Objects.equals(cena, artikel.cena);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (naziv != null ? naziv.hashCode() : 0);
-        result = 31 * result + (zaloga != null ? zaloga.hashCode() : 0);
-        return result;
+        return Objects.hash(id, naziv, zaloga, nakupovalniseznamId, cena);
     }
 }

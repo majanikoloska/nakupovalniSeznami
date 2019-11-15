@@ -2,6 +2,7 @@ package Entities;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "nakupovalniseznam")
@@ -29,6 +30,7 @@ public class NakupovalniseznamEntity {
     private String status;
     private String opomba;
     private String naziv;
+    private Integer uporabnikId;
 
 
     @ManyToMany
@@ -84,27 +86,30 @@ public class NakupovalniseznamEntity {
         this.naziv = naziv;
     }
 
+    @Basic
+    @Column(name = "uporabnik_id", nullable = true)
+    public Integer getUporabnikId() {
+        return uporabnikId;
+    }
+
+    public void setUporabnikId(Integer uporabnikId) {
+        this.uporabnikId = uporabnikId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         NakupovalniseznamEntity that = (NakupovalniseznamEntity) o;
-
-        if (id != that.id) return false;
-        if (status != null ? !status.equals(that.status) : that.status != null) return false;
-        if (opomba != null ? !opomba.equals(that.opomba) : that.opomba != null) return false;
-        if (naziv != null ? !naziv.equals(that.naziv) : that.naziv != null) return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(naziv, that.naziv) &&
+                Objects.equals(opomba, that.opomba) &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(uporabnikId, that.uporabnikId);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (opomba != null ? opomba.hashCode() : 0);
-        result = 31 * result + (naziv != null ? naziv.hashCode() : 0);
-        return result;
+        return Objects.hash(id, naziv, opomba, status, uporabnikId);
     }
 }

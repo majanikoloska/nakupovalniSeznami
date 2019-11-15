@@ -2,9 +2,12 @@ package zrna;
 
 import Entities.ArtikelEntity;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,6 +18,16 @@ public class ArtikelZrno {
     @PersistenceContext(unitName = "nakupovalniseznam-jpa")
     private EntityManager em;
     private final static Logger logger = Logger.getLogger(ArtikelZrno.class.getName());
+
+    @PostConstruct
+    private void init(){
+        logger.info("Inicijalizacija zrna " + ArtikelZrno.class.getSimpleName());
+    }
+
+    @PreDestroy
+    private void destroy(){
+        logger.info("Deinicijalizacija zrna " + ArtikelZrno.class.getSimpleName());
+    }
 
     public List<ArtikelEntity> getArtikli() {
         List<ArtikelEntity> artikli = em.createNamedQuery(ArtikelEntity.GET_ALL).getResultList();
@@ -29,20 +42,15 @@ public class ArtikelZrno {
         return artikel;
     }
 
-    public ArtikelEntity getArtikelByNaziv(String naziv) {
-        ArtikelEntity artikel = em.find(ArtikelEntity.class, naziv);
-        if (artikel == null) {
-            logger.info("Artikel ne obstaja");
+    public List<ArtikelEntity> getArtikelByNakupovalniSeznamId(int nakupovalniSeznamId){
+        Query q = em.createNamedQuery(ArtikelEntity.GET_ARTIKEL_BY_NAKUPOVALNI_SEZNAM_ID);
+        List<ArtikelEntity> artikli =(List<ArtikelEntity>)(q.getResultList());
+        if (artikli == null) {
+            logger.info("Artikel z nakupovalni seznam id =" + nakupovalniSeznamId + " ne obstaja!");
+            return null;
         }
-        return artikel;
-    }
+        return artikli;
 
-    public ArtikelEntity getArtikelByZaloga(String zaloga) {
-        ArtikelEntity artikel = em.find(ArtikelEntity.class, zaloga);
-        if (artikel == null) {
-            logger.info("Artikel ne obstaja");
-        }
-        return artikel;
     }
 
     @Transactional
@@ -52,20 +60,18 @@ public class ArtikelZrno {
         return artikel;
     }
 
-    public ArtikelEntity pridobiArtikel(int idArtikel) {
-        return em.find(ArtikelEntity.class, idArtikel);
-    }
-
     @Transactional
-    public void posodobiArtikel(ArtikelEntity artikel) {
+    public ArtikelEntity posodobiArtikel(ArtikelEntity artikel) {
         ArtikelEntity a = em.find(ArtikelEntity.class, artikel.getId());
         if (a == null) {
             logger.info("Artikel ne obstaja");
+            return null;
         }
         a.setNaziv(artikel.getNaziv());
         a.setZaloga(artikel.getZaloga());
         em.merge(a);
         logger.info("Uspesno posodobljen artikel");
+        return a;
     }
 
     @Transactional

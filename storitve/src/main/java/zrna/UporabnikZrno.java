@@ -1,9 +1,13 @@
 package zrna;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+
+import DTO.UporabnikDto;
 import Entities.*;
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,50 +19,20 @@ public class UporabnikZrno {
     private EntityManager em;
     private final static Logger logger = Logger.getLogger(UporabnikZrno.class.getName());
 
+    @PostConstruct
+    private void init(){
+        logger.info("Inicijalizacija zrna " + UporabnikZrno.class.getSimpleName());
+    }
+
+    @PreDestroy
+    private void destroy(){
+        logger.info("Deinicijalizacija zrna " + UporabnikZrno.class.getSimpleName());
+    }
+
     public List<UporabnikEntity> getUporabniki() {
 
         List<UporabnikEntity> uporabniki = em.createNamedQuery(UporabnikEntity.GET_ALL).getResultList();
         return uporabniki;
-    }
-
-    public UporabnikEntity getUporabnikById(int idUporabnik) {
-        UporabnikEntity uporabnik = em.find(UporabnikEntity.class, idUporabnik);
-        if (uporabnik == null) {
-            logger.info("Neuspesno");
-        }
-        return uporabnik;
-    }
-
-    public UporabnikEntity getUporabnikByName(String uporabniName) {
-        UporabnikEntity uporabnik = em.find(UporabnikEntity.class, uporabniName);
-        if (uporabnik == null) {
-            logger.info("Neuspesno");
-        }
-        return uporabnik;
-    }
-
-    public UporabnikEntity getUporabnikBySurname(String uporabniSuername) {
-        UporabnikEntity uporabnik = em.find(UporabnikEntity.class, uporabniSuername);
-        if (uporabnik == null) {
-            logger.info("Neuspesno");
-        }
-        return uporabnik;
-    }
-
-    public UporabnikEntity getUporabnikByUsername(String uporabnikUsername) {
-        UporabnikEntity uporabnik = em.find(UporabnikEntity.class, uporabnikUsername);
-        if (uporabnik == null) {
-            logger.info("Neuspesno");
-        }
-        return uporabnik;
-    }
-
-    public UporabnikEntity getUporabnikByEmail(String uporabnikEmail) {
-        UporabnikEntity uporabnik = em.find(UporabnikEntity.class, uporabnikEmail);
-        if (uporabnik == null) {
-            logger.info("Neuspesno");
-        }
-        return uporabnik;
     }
 
     @Transactional
@@ -69,14 +43,20 @@ public class UporabnikZrno {
     }
 
     public UporabnikEntity pridobiUporabnika(int idUporabnik) {
-        return em.find(UporabnikEntity.class, idUporabnik);
+        UporabnikEntity uporabnik = em.find(UporabnikEntity.class, idUporabnik);
+        if (uporabnik == null) {
+            logger.info("Neuspešno pridobivanje uporabnika ");
+            return null;
+        }
+        return uporabnik;
     }
 
     @Transactional
-    public void posodobiUporabnika(UporabnikEntity uporabnik) {
+    public UporabnikEntity posodobiUporabnika(UporabnikEntity uporabnik) {
         UporabnikEntity u = em.find(UporabnikEntity.class, uporabnik.getId());
         if (u == null) {
             logger.info("Uporabnik ne obstaja");
+            return null;
         }
         else {
             u.setIme(uporabnik.getIme());
@@ -87,6 +67,7 @@ public class UporabnikZrno {
             u.setNakupovalniseznam(uporabnik.getNakupovalniseznam());
             em.merge(u);
             logger.info("Uspesno posodobljen uporabnik");
+            return u;
         }
     }
 

@@ -2,6 +2,8 @@ package zrna;
 
 import Entities.NakupovalniseznamEntity;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +16,17 @@ public class NakupovalniseznamZrno {
 
     @PersistenceContext(unitName = "nakupovalniseznam-jpa")
     private EntityManager em;
-    private final static Logger logger = Logger.getLogger(UporabnikZrno.class.getName());
+    private final static Logger logger = Logger.getLogger(NakupovalniseznamZrno.class.getName());
+
+    @PostConstruct
+    private void init(){
+        logger.info("Inicijalizacija zrna " + NakupovalniseznamZrno.class.getSimpleName());
+    }
+
+    @PreDestroy
+    private void destroy(){
+        logger.info("Deinicijalizacija zrna " + NakupovalniseznamZrno.class.getSimpleName());
+    }
 
     public List<NakupovalniseznamEntity> getNakupovalniseznami() {
         List<NakupovalniseznamEntity> nakupovalniseznami = em.createNamedQuery(NakupovalniseznamEntity.GET_ALL).getResultList();
@@ -29,31 +41,11 @@ public class NakupovalniseznamZrno {
         return nakupovalniseznam;
     }
 
-    public NakupovalniseznamEntity getNakupovalniseznamByNaziv(String naziv) {
-        NakupovalniseznamEntity nakupovalniseznam = em.find(NakupovalniseznamEntity.class, naziv);
-        if (nakupovalniseznam == null) {
-            logger.info("Nakupovalni seznam ne obstaja");
-        }
-        return nakupovalniseznam;
-    }
-
-    public NakupovalniseznamEntity getNakupovalniSeznamByStatus(String status) {
-        NakupovalniseznamEntity nakupovalniseznam = em.find(NakupovalniseznamEntity.class, status);
-        if (nakupovalniseznam == null) {
-            logger.info("Nakupovalni seznam ne obstaja");
-        }
-        return nakupovalniseznam;
-    }
-
     @Transactional
     public NakupovalniseznamEntity dodajNakupovalniseznam(NakupovalniseznamEntity nakupovalniseznam) {
         em.persist(nakupovalniseznam);
         logger.info("Uspesno dodan nakupovalni seznam");
         return nakupovalniseznam;
-    }
-
-    public NakupovalniseznamEntity prodobiNakupovalniSeznam(int idNakupovalniSeznam) {
-        return em.find(NakupovalniseznamEntity.class, idNakupovalniSeznam);
     }
 
     @Transactional
@@ -68,14 +60,16 @@ public class NakupovalniseznamZrno {
     }
 
     @Transactional
-    public void posodobiNakupovalniseznam(NakupovalniseznamEntity nakupovalniseznam) {
+    public NakupovalniseznamEntity posodobiNakupovalniseznam(NakupovalniseznamEntity nakupovalniseznam) {
         NakupovalniseznamEntity ns = em.find(NakupovalniseznamEntity.class, nakupovalniseznam.getId());
         if (ns == null) {
             logger.info("Nakupovalni seznam ne obstaja");
+            return null;
         }
         ns.setNaziv(nakupovalniseznam.getNaziv());
         ns.setStatus(nakupovalniseznam.getStatus());
         em.merge(ns);
         logger.info("Uspesno posodobljen nakupovalni seznam");
+        return ns;
     }
 }
