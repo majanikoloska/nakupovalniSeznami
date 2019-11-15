@@ -21,10 +21,6 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-        <dependency>
-            <groupId>si.fri.prpo.nakupovalniseznami</groupId>
-            <artifactId>api</artifactId>
-        </dependency>
     </dependencies>
 
     

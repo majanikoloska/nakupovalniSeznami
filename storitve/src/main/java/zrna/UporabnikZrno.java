@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import DTO.UporabnikDto;
+
 import Entities.*;
 import java.util.List;
 import java.util.logging.Logger;

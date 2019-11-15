@@ -1,5 +1,6 @@
 package zrna;
 
+
 import DTO.NakupovalniSeznamDto;
 import Entities.ArtikelEntity;
 import Entities.NakupovalniseznamEntity;
