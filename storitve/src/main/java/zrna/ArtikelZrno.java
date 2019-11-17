@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -22,6 +23,8 @@ public class ArtikelZrno {
     @PostConstruct
     private void init(){
         logger.info("Inicijalizacija zrna " + ArtikelZrno.class.getSimpleName());
+        final String uuid = UUID.randomUUID().toString().replace("-", "");
+        logger.info("uuid = " + uuid);
     }
 
     @PreDestroy
@@ -43,7 +46,7 @@ public class ArtikelZrno {
     }
 
     public List<ArtikelEntity> getArtikelByNakupovalniSeznamId(int nakupovalniSeznamId){
-        Query q = em.createNamedQuery(ArtikelEntity.GET_ARTIKEL_BY_NAKUPOVALNI_SEZNAM_ID);
+        Query q = em.createNamedQuery(ArtikelEntity.GET_ARTIKEL_BY_NAKUPOVALNI_SEZNAM_ID).setParameter("nakupovalniSeznamId", nakupovalniSeznamId);
         List<ArtikelEntity> artikli =(List<ArtikelEntity>)(q.getResultList());
         if (artikli == null) {
             logger.info("Artikel z nakupovalni seznam id =" + nakupovalniSeznamId + " ne obstaja!");

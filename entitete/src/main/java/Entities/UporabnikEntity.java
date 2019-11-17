@@ -39,7 +39,7 @@ public class UporabnikEntity {
     private String email;
     private String password;
 
-    @ManyToMany
+    @OneToMany
     private List<NakupovalniseznamEntity> nakupovalniseznam;
 
     public List<NakupovalniseznamEntity> getNakupovalniseznam() {

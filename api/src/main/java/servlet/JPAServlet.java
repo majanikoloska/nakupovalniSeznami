@@ -1,11 +1,13 @@
 package servlet;
 
+import DTO.NakupovalniSeznamDto;
 import Entities.ArtikelEntity;
 import Entities.NakupovalniseznamEntity;
 import Entities.UporabnikEntity;
 import zrna.ArtikelZrno;
 import zrna.NakupovalniseznamZrno;
 import zrna.UporabnikZrno;
+import zrna.UpravljanjeNakupovalnihSeznamovZrno;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -15,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @WebServlet("/servlet")
 public class JPAServlet extends HttpServlet {
@@ -28,6 +32,13 @@ public class JPAServlet extends HttpServlet {
 
     @Inject
     private NakupovalniseznamZrno nakupovalniseznamZrno;
+
+    @Inject
+    private UpravljanjeNakupovalnihSeznamovZrno upravljanjeNakupovalnihSeznamovZrno;
+
+    NakupovalniSeznamDto nakupovalniSeznamDto;
+
+    private final static Logger logger = Logger.getLogger(JPAServlet.class.getName());
 
 
     @Override
@@ -50,6 +61,16 @@ public class JPAServlet extends HttpServlet {
             out.println(nakupovalniseznamEntity.getId()+", "+nakupovalniseznamEntity.getNaziv()+", "+nakupovalniseznamEntity.getOpomba()+", "+nakupovalniseznamEntity.getStatus());
         }
 
+        nakupovalniSeznamDto = new NakupovalniSeznamDto();
+        nakupovalniSeznamDto.setUporabnikId(1);
+        nakupovalniSeznamDto.setArtikli(new ArrayList<>());
+        nakupovalniSeznamDto.setNaziv("Food");
+        nakupovalniSeznamDto.setStatus("Pending");
+        nakupovalniSeznamDto.setOpomba("");
+
+        NakupovalniseznamEntity nakupovalniseznamEntity = upravljanjeNakupovalnihSeznamovZrno.dodajNakupovalniSeznam(nakupovalniSeznamDto);
+
+        logger.info("Dodan nakupovalni seznam z id:" + nakupovalniseznamEntity.getId());
 
     }
 }

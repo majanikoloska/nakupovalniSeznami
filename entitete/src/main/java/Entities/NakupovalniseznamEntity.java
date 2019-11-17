@@ -33,8 +33,12 @@ public class NakupovalniseznamEntity {
     private Integer uporabnikId;
 
 
-    @ManyToMany
+    @OneToMany
     private List<ArtikelEntity> artikli;
+
+    @ManyToOne
+    @JoinColumn(name = "uporabnik_id")
+    private UporabnikEntity uporabnik;
 
 
     public List<ArtikelEntity> getArtikli() {

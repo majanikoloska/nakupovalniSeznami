@@ -9,13 +9,15 @@ import Entities.UporabnikEntity;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
-@ApplicationScoped
+@RequestScoped
 public class UpravljanjeNakupovalnihSeznamovZrno {
 
     @Inject
@@ -35,6 +37,8 @@ public class UpravljanjeNakupovalnihSeznamovZrno {
     @PostConstruct
     private void init(){
         logger.info("Inicijalizacija zrna " + UpravljanjeNakupovalnihSeznamovZrno.class.getSimpleName());
+        final String uuid = UUID.randomUUID().toString().replace("-", "");
+        logger.info("uuid = " + uuid);
     }
 
     @PreDestroy

@@ -1,6 +1,7 @@
 package Entities;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -33,6 +34,11 @@ public class ArtikelEntity {
     private Boolean zaloga;
     private Integer cena;
     private Integer nakupovalniseznamId;
+
+
+    @ManyToOne
+    @JoinColumn(name = "nakupovalniseznam_id")
+    private NakupovalniseznamEntity nakupovalniSeznam;
 
 
     @Id
@@ -84,6 +90,14 @@ public class ArtikelEntity {
 
     public void setCena(Integer cena) {
         this.cena = cena;
+    }
+
+    public NakupovalniseznamEntity getNakupovalniSeznam() {
+        return nakupovalniSeznam;
+    }
+
+    public void setNakupovalniSeznam(NakupovalniseznamEntity nakupovalniSeznam) {
+        this.nakupovalniSeznam = nakupovalniSeznam;
     }
 
     @Override

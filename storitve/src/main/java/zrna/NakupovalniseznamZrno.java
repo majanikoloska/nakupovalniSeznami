@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -21,6 +22,8 @@ public class NakupovalniseznamZrno {
     @PostConstruct
     private void init(){
         logger.info("Inicijalizacija zrna " + NakupovalniseznamZrno.class.getSimpleName());
+        final String uuid = UUID.randomUUID().toString().replace("-", "");
+        logger.info("uuid = " + uuid);
     }
 
     @PreDestroy

@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 
 import Entities.*;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -22,6 +23,8 @@ public class UporabnikZrno {
     @PostConstruct
     private void init(){
         logger.info("Inicijalizacija zrna " + UporabnikZrno.class.getSimpleName());
+        final String uuid = UUID.randomUUID().toString().replace("-", "");
+        logger.info("uuid = " + uuid);
     }
 
     @PreDestroy
