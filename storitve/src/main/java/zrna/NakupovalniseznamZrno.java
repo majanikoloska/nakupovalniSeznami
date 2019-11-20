@@ -1,5 +1,6 @@
 package zrna;
 
+import Entities.ArtikelEntity;
 import Entities.NakupovalniseznamEntity;
 
 import javax.annotation.PostConstruct;
@@ -7,6 +8,9 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
@@ -32,7 +36,11 @@ public class NakupovalniseznamZrno {
     }
 
     public List<NakupovalniseznamEntity> getNakupovalniseznami() {
-        List<NakupovalniseznamEntity> nakupovalniseznami = em.createNamedQuery(NakupovalniseznamEntity.GET_ALL).getResultList();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<NakupovalniseznamEntity> c = cb.createQuery(NakupovalniseznamEntity.class);
+        Root<NakupovalniseznamEntity> root = c.from(NakupovalniseznamEntity.class);
+        c.select(root);
+        List<NakupovalniseznamEntity> nakupovalniseznami = em.createQuery(c).getResultList();
         return nakupovalniseznami;
     }
 

@@ -5,6 +5,9 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 
@@ -33,8 +36,12 @@ public class UporabnikZrno {
     }
 
     public List<UporabnikEntity> getUporabniki() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<UporabnikEntity> c = cb.createQuery(UporabnikEntity.class);
+        Root<UporabnikEntity> root = c.from(UporabnikEntity.class);
+        c.select(root);
 
-        List<UporabnikEntity> uporabniki = em.createNamedQuery(UporabnikEntity.GET_ALL).getResultList();
+        List<UporabnikEntity> uporabniki = em.createQuery(c).getResultList();
         return uporabniki;
     }
 

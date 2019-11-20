@@ -8,6 +8,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
@@ -33,7 +36,11 @@ public class ArtikelZrno {
     }
 
     public List<ArtikelEntity> getArtikli() {
-        List<ArtikelEntity> artikli = em.createNamedQuery(ArtikelEntity.GET_ALL).getResultList();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<ArtikelEntity> c = cb.createQuery(ArtikelEntity.class);
+        Root<ArtikelEntity> root = c.from(ArtikelEntity.class);
+        c.select(root);
+        List<ArtikelEntity> artikli = em.createQuery(c).getResultList();
         return artikli;
     }
 
