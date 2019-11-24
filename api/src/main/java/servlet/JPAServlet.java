@@ -10,6 +10,9 @@ import zrna.UporabnikZrno;
 import zrna.UpravljanjeNakupovalnihSeznamovZrno;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
