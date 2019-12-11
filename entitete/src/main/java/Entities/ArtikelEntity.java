@@ -36,7 +36,7 @@ public class ArtikelEntity {
     private Integer nakupovalniseznamId;
 
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "nakupovalniseznam_id")
     private NakupovalniseznamEntity nakupovalniSeznam;
 

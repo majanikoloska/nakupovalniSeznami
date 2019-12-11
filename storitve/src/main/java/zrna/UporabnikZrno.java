@@ -9,14 +9,14 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
-
-
 import Entities.*;
+import interceptori.BeleziKlice;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
 @ApplicationScoped
+@BeleziKlice
 public class UporabnikZrno {
 
     @PersistenceContext(unitName = "nakupovalniseznam-jpa")

@@ -2,6 +2,7 @@ package zrna;
 
 import Entities.ArtikelEntity;
 import Entities.NakupovalniseznamEntity;
+import interceptori.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -17,6 +18,7 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 @ApplicationScoped
+@BeleziKlice
 public class NakupovalniseznamZrno {
 
     @PersistenceContext(unitName = "nakupovalniseznam-jpa")

@@ -33,10 +33,10 @@ public class NakupovalniseznamEntity {
     private Integer uporabnikId;
 
 
-    @OneToMany
+    @OneToMany(fetch=FetchType.EAGER)
     private List<ArtikelEntity> artikli;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "uporabnik_id")
     private UporabnikEntity uporabnik;
 
