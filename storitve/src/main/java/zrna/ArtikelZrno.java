@@ -110,4 +110,5 @@ public class ArtikelZrno {
         Long cnt = JPAUtils.queryEntitiesCount(em, ArtikelEntity.class, query);
         return cnt;
     }
+
 }
