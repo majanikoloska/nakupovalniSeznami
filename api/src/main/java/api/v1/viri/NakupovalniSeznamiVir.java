@@ -1,14 +1,19 @@
 package api.v1.viri;
 
 import DTO.NakupovalniSeznamDto;
+import Entities.ArtikelEntity;
 import Entities.NakupovalniseznamEntity;
 import api.v1.mappers.NakupovalniSeznamMapper;
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import zrna.NakupovalniseznamZrno;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @Path("/nakupovalniSeznami")
@@ -23,6 +28,9 @@ public class NakupovalniSeznamiVir {
 
     @Inject
     private NakupovalniSeznamMapper nakupovalniSeznamMapper;
+
+    @Context
+    protected UriInfo uriInfo;
 
     @GET
     public List<NakupovalniSeznamDto> getNakupovalniseznami() {
@@ -68,6 +76,14 @@ public class NakupovalniSeznamiVir {
 
         nakupovalniseznamZrno.izbrisiNakupovalniseznam(nakupovalniseznamEntity.getId());
 
+    }
+
+    @GET
+    public Response vrniNakupovalniseznami(){
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<NakupovalniseznamEntity> nakupovalniseznami = nakupovalniseznamZrno.getNakupovalniseznami2(query);
+        Long cnt = nakupovalniseznamZrno.getNakupovalniseznamiCnt(query);
+        return Response.ok(nakupovalniseznami).header("X-Total-Count", cnt).build();
     }
 
 }

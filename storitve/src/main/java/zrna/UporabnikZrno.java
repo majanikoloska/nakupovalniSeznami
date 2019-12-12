@@ -3,13 +3,17 @@ package zrna;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import Entities.*;
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import interceptori.BeleziKlice;
 import java.util.List;
 import java.util.UUID;
@@ -92,4 +96,15 @@ public class UporabnikZrno {
         }
     }
 
+    @Default
+    public List<UporabnikEntity> getUporabniki2(QueryParameters query){
+        List<UporabnikEntity> uporabniki = JPAUtils.queryEntities(em, UporabnikEntity.class, query);
+        return uporabniki;
+    }
+
+    @Default
+    public Long pridobiUporabnikeCnt(QueryParameters query){
+        Long cnt = JPAUtils.queryEntitiesCount(em, UporabnikEntity.class, query);
+        return cnt;
+    }
 }

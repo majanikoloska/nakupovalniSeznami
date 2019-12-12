@@ -1,11 +1,14 @@
 package zrna;
 
 import Entities.ArtikelEntity;
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import interceptori.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -95,5 +98,16 @@ public class ArtikelZrno {
         else {
             em.remove(artikel);
         }
+    }
+
+    @Default
+    public List<ArtikelEntity> getArtikli2(QueryParameters query) {
+        List<ArtikelEntity> artikli = JPAUtils.queryEntities(em, ArtikelEntity.class, query);
+        return artikli;
+    }
+
+    public Long getArtikliCnt(QueryParameters query){
+        Long cnt = JPAUtils.queryEntitiesCount(em, ArtikelEntity.class, query);
+        return cnt;
     }
 }

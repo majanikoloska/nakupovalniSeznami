@@ -3,12 +3,16 @@ package api.v1.viri;
 import DTO.ArtikelDto;
 import Entities.ArtikelEntity;
 import api.v1.mappers.ArtikelMapper;
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import zrna.ArtikelZrno;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @Path("/artikli")
@@ -23,6 +27,9 @@ public class ArtikelVir {
 
     @Inject
     private ArtikelMapper artikelMapper;
+
+    @Context
+    protected UriInfo uriInfo;
 
     @GET
     public List<ArtikelDto> getArtikli() {
@@ -76,6 +83,14 @@ public class ArtikelVir {
         List<ArtikelEntity> artikelEntities = artikelZrno.getArtikelByNakupovalniSeznamId(nakupovalniSeznamId);
 
         return artikelMapper.mapToArtikelDtoList(artikelEntities);
-
     }
+
+    @GET
+    public Response vrniArtikli(){
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<ArtikelEntity> artikli = artikelZrno.getArtikli2(query);
+        Long cnt = artikelZrno.getArtikliCnt(query);
+        return Response.ok(artikli).header("X-Total-Count", cnt).build();
+    }
+
 }

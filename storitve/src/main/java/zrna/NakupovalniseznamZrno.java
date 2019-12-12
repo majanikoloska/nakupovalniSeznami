@@ -2,11 +2,14 @@ package zrna;
 
 import Entities.ArtikelEntity;
 import Entities.NakupovalniseznamEntity;
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import interceptori.BeleziKlice;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -84,5 +87,16 @@ public class NakupovalniseznamZrno {
         em.merge(ns);
         logger.info("Uspesno posodobljen nakupovalni seznam");
         return ns;
+    }
+
+    @Default
+    public List<NakupovalniseznamEntity> getNakupovalniseznami2(QueryParameters query) {
+        List<NakupovalniseznamEntity> nakupovalniseznami = JPAUtils.queryEntities(em, NakupovalniseznamEntity.class, query);
+        return nakupovalniseznami;
+    }
+
+    public Long getNakupovalniseznamiCnt(QueryParameters query){
+        Long cnt = JPAUtils.queryEntitiesCount(em, NakupovalniseznamEntity.class, query);
+        return cnt;
     }
 }

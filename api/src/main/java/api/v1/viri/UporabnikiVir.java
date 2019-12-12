@@ -3,12 +3,16 @@ package api.v1.viri;
 import DTO.UporabnikDto;
 import Entities.UporabnikEntity;
 import api.v1.mappers.UporabnikMapper;
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import zrna.UporabnikZrno;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
 @Path("/uporabniki")
@@ -22,6 +26,9 @@ public class UporabnikiVir {
 
     @Inject
     private UporabnikMapper uporabnikMapper;
+
+    @Context
+    protected UriInfo uriInfo;
 
     @GET
     public List<UporabnikDto> vrniUporabnike() {
@@ -67,6 +74,13 @@ public class UporabnikiVir {
 
         uporabnikZrno.izbrisiUporabnika(uporabnikEntity.getId());
 
+    }
+
+    public Response vrniUporabniki(){
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        List<UporabnikEntity> uporabniki = uporabnikZrno.getUporabniki2(query);
+        Long cnt = uporabnikZrno.pridobiUporabnikeCnt(query);
+        return Response.ok(uporabniki).header("X-Total-Count", cnt).build();
     }
 
 }
