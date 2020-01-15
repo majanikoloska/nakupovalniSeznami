@@ -4,6 +4,7 @@ import DTO.ArtikelDto;
 import Entities.ArtikelEntity;
 import api.v1.mappers.ArtikelMapper;
 import com.kumuluz.ee.rest.beans.QueryParameters;
+import interceptori.BeleziKlice;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -71,7 +72,7 @@ public class ArtikelVir {
                     ArtikelEntity.class)))
     })
 
-    @Path("{id}")
+
     @PUT
     public Response posodobiArtikel(ArtikelEntity artikel){
         artikelZrno.posodobiArtikel(artikel);
@@ -84,65 +85,69 @@ public class ArtikelVir {
             @ApiResponse(description = "Delete article", responseCode = "204", content = @Content(schema = @Schema(implementation =
                     ArtikelEntity.class)))
     })
-    @Path("{id}")
+
     @DELETE
+    @Path("{id}")
     public Response odstraniArtikel(@PathParam("id") Integer id) {
         artikelZrno.izbrisiArtikel(id);
         return Response.status(Response.Status.GONE).build();
     }
 
-    @GET
-    public List<ArtikelDto> getArtikli() {
-
-        List<ArtikelEntity> artikelEntities = artikelZrno.getArtikli();
-
-        return artikelMapper.mapToArtikelDtoList(artikelEntities);
-    }
-
-    @GET
-    @Path("/artikel/{id}")
-    public ArtikelDto getArtikelById(@PathParam("id") int id) {
-
-        ArtikelEntity artikelEntity = artikelZrno.getArtikelById(id);
-
-        return artikelMapper.mapToArtikelDto(artikelEntity);
-    }
-
-    @POST
-    public ArtikelDto dodajArtikel(ArtikelDto artikelDto) {
-
-        ArtikelEntity artikelEntity = artikelMapper.mapToArtikelEntity(artikelDto);
-
-        artikelEntity = artikelZrno.dodajArtikel(artikelEntity);
-
-        return artikelMapper.mapToArtikelDto(artikelEntity);
-    }
-
-    @PUT
-    public ArtikelDto posodobiArtikel(ArtikelDto artikelDto) {
-
-        ArtikelEntity artikelEntity = artikelMapper.mapToArtikelEntity(artikelDto);
-
-        artikelEntity = artikelZrno.posodobiArtikel(artikelEntity);
-
-        return artikelMapper.mapToArtikelDto(artikelEntity);
-    }
-
-    @DELETE
-    public void izbrisiArtikel(ArtikelDto artikelDto) {
-
-        ArtikelEntity artikelEntity = artikelMapper.mapToArtikelEntity(artikelDto);
-
-        artikelZrno.izbrisiArtikel(artikelEntity.getId());
-
-    }
-
-    @GET
-    @Path("/nakupobvalniSeznam/{id}")
-    public List<ArtikelDto> getArtikelByNakupovalniSeznamId(@PathParam("id") int nakupovalniSeznamId) {
-        List<ArtikelEntity> artikelEntities = artikelZrno.getArtikelByNakupovalniSeznamId(nakupovalniSeznamId);
-
-        return artikelMapper.mapToArtikelDtoList(artikelEntities);
-    }
+//    @GET
+//    public List<ArtikelDto> getArtikli() {
+//
+//        List<ArtikelEntity> artikelEntities = artikelZrno.getArtikli();
+//
+//        return artikelMapper.mapToArtikelDtoList(artikelEntities);
+//    }
+//
+//    @GET
+//    @Path("/artikel/{id}")
+//    public ArtikelDto getArtikelById(@PathParam("id") int id) {
+//
+//        ArtikelEntity artikelEntity = artikelZrno.getArtikelById(id);
+//
+//        return artikelMapper.mapToArtikelDto(artikelEntity);
+//    }
+//
+//    @POST
+//    @Path("/artikel/{id}")
+//    public ArtikelDto dodajArtikel(ArtikelDto artikelDto) {
+//
+//        ArtikelEntity artikelEntity = artikelMapper.mapToArtikelEntity(artikelDto);
+//
+//        artikelEntity = artikelZrno.dodajArtikel(artikelEntity);
+//
+//        return artikelMapper.mapToArtikelDto(artikelEntity);
+//    }
+//
+//    @PUT
+//    @Path("/artikel/{id}")
+//    public ArtikelDto posodobiArtikel(ArtikelDto artikelDto) {
+//
+//        ArtikelEntity artikelEntity = artikelMapper.mapToArtikelEntity(artikelDto);
+//
+//        artikelEntity = artikelZrno.posodobiArtikel(artikelEntity);
+//
+//        return artikelMapper.mapToArtikelDto(artikelEntity);
+//    }
+//
+//    @DELETE
+//    @Path("/artikel/{id}")
+//    public void izbrisiArtikel(ArtikelDto artikelDto) {
+//
+//        ArtikelEntity artikelEntity = artikelMapper.mapToArtikelEntity(artikelDto);
+//
+//        artikelZrno.izbrisiArtikel(artikelEntity.getId());
+//
+//    }
+//
+//    @GET
+//    @Path("/nakupobvalniSeznam/{id}")
+//    public List<ArtikelDto> getArtikelByNakupovalniSeznamId(@PathParam("id") int nakupovalniSeznamId) {
+//        List<ArtikelEntity> artikelEntities = artikelZrno.getArtikelByNakupovalniSeznamId(nakupovalniSeznamId);
+//
+//        return artikelMapper.mapToArtikelDtoList(artikelEntities);
+//    }
 
 }

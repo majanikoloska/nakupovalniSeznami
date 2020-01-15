@@ -13,6 +13,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -75,8 +76,7 @@ public class UpravljanjeNakupovalnihSeznamovZrno {
     public Integer narediIzracun(NakupovalniSeznamDto nakupovalniSeznamDto){
         List<ArtikelEntity> artikelEntities = artikelZrno.getArtikelByNakupovalniSeznamId(nakupovalniSeznamDto.getId());
         if (artikelEntities.isEmpty() || artikelEntities == null){
-            logger.info("Nakupovalni seznam je prazen!");
-            return 0;
+            throw new Error();
         }
         Integer izracun = 0;
         for (ArtikelEntity artikelEntity: artikelEntities){

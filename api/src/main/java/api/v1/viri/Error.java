@@ -1,5 +1,6 @@
 package api.v1.viri;
 
+
 public class Error {
     private int status;
     private String message;

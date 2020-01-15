@@ -28,8 +28,6 @@
         <dependency>
             <groupId>com.kumuluz.ee.rest</groupId>
             <artifactId>kumuluzee-rest-core</artifactId>
-            <version>1.2.3</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
