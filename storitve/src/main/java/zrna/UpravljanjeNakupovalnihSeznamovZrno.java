@@ -67,8 +67,9 @@ public class UpravljanjeNakupovalnihSeznamovZrno {
     public Boolean validirajNakupovalniSeznam(NakupovalniSeznamDto nakupovalniSeznamDto){
         if (nakupovalniSeznamDto.getNaziv().isEmpty() || nakupovalniSeznamDto.getNaziv() == null
                 || nakupovalniSeznamDto.getStatus() == null || nakupovalniSeznamDto.getStatus().isEmpty()){
-            logger.info("Seznam ne vsebuje vseh obveznih podatkov");
-            return false;
+//            logger.info("Seznam ne vsebuje vseh obveznih podatkov");
+//            return false;
+            throw new Error();
         }
         return true;
     }

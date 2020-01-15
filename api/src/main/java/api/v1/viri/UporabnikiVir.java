@@ -29,8 +29,8 @@ public class UporabnikiVir {
     @Inject
     private UporabnikZrno uporabnikZrno;
 
-    @Inject
-    private UporabnikMapper uporabnikMapper;
+//    @Inject
+//    private UporabnikMapper uporabnikMapper;
 
     @Context
     protected UriInfo uriInfo;
@@ -42,6 +42,7 @@ public class UporabnikiVir {
                     UporabnikEntity.class)))
     })
 
+    @GET
     public Response vrniUporabniki(){
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         List<UporabnikEntity> uporabniki = uporabnikZrno.getUporabniki2(query);
@@ -88,50 +89,50 @@ public class UporabnikiVir {
         return Response.status(Response.Status.GONE).build();
     }
 
-    @GET
-    public List<UporabnikDto> vrniUporabnike() {
-
-        List<UporabnikEntity> uporabniki = uporabnikZrno.getUporabniki();
-
-        return uporabnikMapper.mapToUporabnikDtoList(uporabniki);
-    }
-
-    @GET
-    @Path("uporabnik/{id}")
-    public UporabnikDto vrniUporabnikById(@PathParam("id") int id) {
-
-        UporabnikEntity uporabnik = uporabnikZrno.pridobiUporabnika(id);
-
-        return uporabnikMapper.mapToUporabnikDto(uporabnik);
-    }
-
-    @POST
-    public UporabnikDto dodajUporabnik(UporabnikDto uporabnikDto) {
-
-        UporabnikEntity uporabnikEntity = uporabnikMapper.mapToUporabnikEntity(uporabnikDto);
-
-        uporabnikEntity = uporabnikZrno.dodajUporabnik(uporabnikEntity);
-
-        return uporabnikMapper.mapToUporabnikDto(uporabnikEntity);
-    }
-
-    @PUT
-    public UporabnikDto posodobiUporabnik(UporabnikDto uporabnikDto) {
-
-        UporabnikEntity uporabnikEntity = uporabnikMapper.mapToUporabnikEntity(uporabnikDto);
-
-        uporabnikEntity = uporabnikZrno.posodobiUporabnika(uporabnikEntity);
-
-        return uporabnikMapper.mapToUporabnikDto(uporabnikEntity);
-    }
-
-    @DELETE
-    public void izbrisiUporabnik(UporabnikDto uporabnikDto) {
-
-        UporabnikEntity uporabnikEntity = uporabnikMapper.mapToUporabnikEntity(uporabnikDto);
-
-        uporabnikZrno.izbrisiUporabnika(uporabnikEntity.getId());
-
-    }
+//    @GET
+//    public List<UporabnikDto> vrniUporabnike() {
+//
+//        List<UporabnikEntity> uporabniki = uporabnikZrno.getUporabniki();
+//
+//        return uporabnikMapper.mapToUporabnikDtoList(uporabniki);
+//    }
+//
+//    @GET
+//    @Path("uporabnik/{id}")
+//    public UporabnikDto vrniUporabnikById(@PathParam("id") int id) {
+//
+//        UporabnikEntity uporabnik = uporabnikZrno.pridobiUporabnika(id);
+//
+//        return uporabnikMapper.mapToUporabnikDto(uporabnik);
+//    }
+//
+//    @POST
+//    public UporabnikDto dodajUporabnik(UporabnikDto uporabnikDto) {
+//
+//        UporabnikEntity uporabnikEntity = uporabnikMapper.mapToUporabnikEntity(uporabnikDto);
+//
+//        uporabnikEntity = uporabnikZrno.dodajUporabnik(uporabnikEntity);
+//
+//        return uporabnikMapper.mapToUporabnikDto(uporabnikEntity);
+//    }
+//
+//    @PUT
+//    public UporabnikDto posodobiUporabnik(UporabnikDto uporabnikDto) {
+//
+//        UporabnikEntity uporabnikEntity = uporabnikMapper.mapToUporabnikEntity(uporabnikDto);
+//
+//        uporabnikEntity = uporabnikZrno.posodobiUporabnika(uporabnikEntity);
+//
+//        return uporabnikMapper.mapToUporabnikDto(uporabnikEntity);
+//    }
+//
+//    @DELETE
+//    public void izbrisiUporabnik(UporabnikDto uporabnikDto) {
+//
+//        UporabnikEntity uporabnikEntity = uporabnikMapper.mapToUporabnikEntity(uporabnikDto);
+//
+//        uporabnikZrno.izbrisiUporabnika(uporabnikEntity.getId());
+//
+//    }
 
 }

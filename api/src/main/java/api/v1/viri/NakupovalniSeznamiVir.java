@@ -31,8 +31,8 @@ public class NakupovalniSeznamiVir {
     @Inject
     private NakupovalniseznamZrno nakupovalniseznamZrno;
 
-    @Inject
-    private NakupovalniSeznamMapper nakupovalniSeznamMapper;
+//    @Inject
+//    private NakupovalniSeznamMapper nakupovalniSeznamMapper;
 
     @Context
     protected UriInfo uriInfo;
@@ -92,50 +92,50 @@ public class NakupovalniSeznamiVir {
         return Response.status(Response.Status.GONE).build();
     }
 
-    @GET
-    public List<NakupovalniSeznamDto> getNakupovalniseznami() {
-
-        List<NakupovalniseznamEntity> nakupovalniseznamEntities = nakupovalniseznamZrno.getNakupovalniseznami();
-
-        return nakupovalniSeznamMapper.mapToNakupovalniSeznamDtoList(nakupovalniseznamEntities);
-    }
-
-    @GET
-    @Path("nakupovalniSeznam/{id}")
-    public NakupovalniSeznamDto getNakupovalniseznamById(@PathParam("id") int id) {
-
-        NakupovalniseznamEntity nakupovalniseznamEntity = nakupovalniseznamZrno.getNakupovalniseznamById(id);
-
-        return nakupovalniSeznamMapper.mapToNakupovalniSeznamDto(nakupovalniseznamEntity);
-    }
-
-    @POST
-    public NakupovalniSeznamDto dodajUporabnik(NakupovalniSeznamDto nakupovalniSeznamDto) {
-
-        NakupovalniseznamEntity nakupovalniseznamEntity = nakupovalniSeznamMapper.mapToNakupovalniseznamEntity(nakupovalniSeznamDto);
-
-        nakupovalniseznamEntity = nakupovalniseznamZrno.dodajNakupovalniseznam(nakupovalniseznamEntity);
-
-        return nakupovalniSeznamMapper.mapToNakupovalniSeznamDto(nakupovalniseznamEntity);
-    }
-
-    @PUT
-    public NakupovalniSeznamDto posodobiUporabnik(NakupovalniSeznamDto nakupovalniSeznamDto) {
-
-        NakupovalniseznamEntity nakupovalniseznamEntity = nakupovalniSeznamMapper.mapToNakupovalniseznamEntity(nakupovalniSeznamDto);
-
-        nakupovalniseznamEntity = nakupovalniseznamZrno.posodobiNakupovalniseznam(nakupovalniseznamEntity);
-
-        return nakupovalniSeznamMapper.mapToNakupovalniSeznamDto(nakupovalniseznamEntity);
-    }
-
-    @DELETE
-    public void izbrisiUporabnik(NakupovalniSeznamDto nakupovalniSeznamDto) {
-
-        NakupovalniseznamEntity nakupovalniseznamEntity = nakupovalniSeznamMapper.mapToNakupovalniseznamEntity(nakupovalniSeznamDto);
-
-        nakupovalniseznamZrno.izbrisiNakupovalniseznam(nakupovalniseznamEntity.getId());
-
-    }
+//    @GET
+//    public List<NakupovalniSeznamDto> getNakupovalniseznami() {
+//
+//        List<NakupovalniseznamEntity> nakupovalniseznamEntities = nakupovalniseznamZrno.getNakupovalniseznami();
+//
+//        return nakupovalniSeznamMapper.mapToNakupovalniSeznamDtoList(nakupovalniseznamEntities);
+//    }
+//
+//    @GET
+//    @Path("nakupovalniSeznam/{id}")
+//    public NakupovalniSeznamDto getNakupovalniseznamById(@PathParam("id") int id) {
+//
+//        NakupovalniseznamEntity nakupovalniseznamEntity = nakupovalniseznamZrno.getNakupovalniseznamById(id);
+//
+//        return nakupovalniSeznamMapper.mapToNakupovalniSeznamDto(nakupovalniseznamEntity);
+//    }
+//
+//    @POST
+//    public NakupovalniSeznamDto dodajUporabnik(NakupovalniSeznamDto nakupovalniSeznamDto) {
+//
+//        NakupovalniseznamEntity nakupovalniseznamEntity = nakupovalniSeznamMapper.mapToNakupovalniseznamEntity(nakupovalniSeznamDto);
+//
+//        nakupovalniseznamEntity = nakupovalniseznamZrno.dodajNakupovalniseznam(nakupovalniseznamEntity);
+//
+//        return nakupovalniSeznamMapper.mapToNakupovalniSeznamDto(nakupovalniseznamEntity);
+//    }
+//
+//    @PUT
+//    public NakupovalniSeznamDto posodobiUporabnik(NakupovalniSeznamDto nakupovalniSeznamDto) {
+//
+//        NakupovalniseznamEntity nakupovalniseznamEntity = nakupovalniSeznamMapper.mapToNakupovalniseznamEntity(nakupovalniSeznamDto);
+//
+//        nakupovalniseznamEntity = nakupovalniseznamZrno.posodobiNakupovalniseznam(nakupovalniseznamEntity);
+//
+//        return nakupovalniSeznamMapper.mapToNakupovalniSeznamDto(nakupovalniseznamEntity);
+//    }
+//
+//    @DELETE
+//    public void izbrisiUporabnik(NakupovalniSeznamDto nakupovalniSeznamDto) {
+//
+//        NakupovalniseznamEntity nakupovalniseznamEntity = nakupovalniSeznamMapper.mapToNakupovalniseznamEntity(nakupovalniSeznamDto);
+//
+//        nakupovalniseznamZrno.izbrisiNakupovalniseznam(nakupovalniseznamEntity.getId());
+//
+//    }
 
 }

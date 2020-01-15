@@ -31,8 +31,8 @@ public class ArtikelVir {
     @Inject
     private ArtikelZrno artikelZrno;
 
-    @Inject
-    private ArtikelMapper artikelMapper;
+//    @Inject
+//    private ArtikelMapper artikelMapper;
 
     @Context
     protected UriInfo uriInfo;
@@ -72,7 +72,7 @@ public class ArtikelVir {
                     ArtikelEntity.class)))
     })
 
-
+    @Path("{id}")
     @PUT
     public Response posodobiArtikel(ArtikelEntity artikel){
         artikelZrno.posodobiArtikel(artikel);
@@ -86,8 +86,8 @@ public class ArtikelVir {
                     ArtikelEntity.class)))
     })
 
-    @DELETE
     @Path("{id}")
+    @DELETE
     public Response odstraniArtikel(@PathParam("id") Integer id) {
         artikelZrno.izbrisiArtikel(id);
         return Response.status(Response.Status.GONE).build();
